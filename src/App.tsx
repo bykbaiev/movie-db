@@ -1,8 +1,8 @@
 import './App.css';
 
-import logo from './logo.svg';
-
 import { RecoilRoot } from 'recoil';
+
+import logo from './logo.svg';
 
 export function App() {
   return (
