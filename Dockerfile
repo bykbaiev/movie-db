@@ -6,18 +6,15 @@ ENV NPM_CONFIG_LOGLEVEL warn
 # Install `serve`.
 RUN npm install -g serve
 
-# Install `yarn`
-RUN npm install -g yarn
-
 # Install all dependencies of the current project.
 COPY package.json package.json
-RUN yarn
+RUN npm install
 
 # Copy all local files into the image.
 COPY . .
 
 # Build for production.
-RUN yarn build
+RUN npm run build
 
 # serve static files in dist folder
 CMD serve -p $PORT -s build
