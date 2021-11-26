@@ -1,4 +1,4 @@
-FROM node:17-alpine
+FROM node:16
 
 # Override the base log level (info).
 ENV NPM_CONFIG_LOGLEVEL warn
@@ -20,4 +20,4 @@ COPY . .
 RUN yarn build
 
 # serve static files in dist folder
-CMD serve -p $PORT -s dist
+CMD serve -p $PORT -s build
