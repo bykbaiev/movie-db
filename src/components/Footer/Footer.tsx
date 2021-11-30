@@ -1,6 +1,5 @@
+import { H1 } from 'components/Title';
 import styled from 'styled-components';
-
-import { H1 } from '../Title';
 
 export const FOOTER_HEIGHT = '50px';
 

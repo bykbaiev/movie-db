@@ -1,8 +1,7 @@
+import { Footer, FOOTER_HEIGHT } from 'components/Footer';
+import { Header } from 'components/Header';
 import { Outlet } from 'react-router-dom';
 import styled from 'styled-components';
-
-import { Footer, FOOTER_HEIGHT } from '../../components/Footer';
-import { Header } from '../../components/Header';
 
 type Props = {
   darkMode: boolean;
