@@ -2,6 +2,7 @@ import {
   Route,
   Routes as Switch
 } from 'react-router-dom';
+import styled from 'styled-components';
 
 export const Routes = () => (
   <Switch>
@@ -11,8 +12,14 @@ export const Routes = () => (
   </Switch>
 );
 
-const Home = () => (<div>Home page</div>);
+const Title = styled.h1`
+  font-size: 1.5em;
+  text-align: center;
+  color: palevioletred;
+`;
 
-const BlankScreen = () => (<div>Empty Ooops!</div>);
+const Home = () => (<Title>Home page</Title>);
 
-const Movie = () => (<div>Movie details</div>);
+const BlankScreen = () => (<Title>Empty Ooops!</Title>);
+
+const Movie = () => (<Title>Movie details</Title>);
