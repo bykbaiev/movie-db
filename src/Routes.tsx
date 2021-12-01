@@ -4,11 +4,15 @@ import {
 } from 'react-router-dom';
 import styled from 'styled-components';
 
+import { GeneralLayout } from './layouts/General'
+
 export const Routes = () => (
   <Switch>
-    <Route path="/" element={<Home />} />
-    <Route path="/movie" element={<BlankScreen />} />
-    <Route path="/movie/:id" element={<Movie />} />
+    <Route path="/" element={<GeneralLayout darkMode />}>
+      <Route path="/" element={<Home />} />
+      <Route path="/movie" element={<BlankScreen />} />
+      <Route path="/movie/:id" element={<Movie />} />
+    </Route>
   </Switch>
 );
 
