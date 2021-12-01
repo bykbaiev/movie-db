@@ -1,0 +1,1 @@
+export {UpcomingMoviesList} from './UpcomingMovies';
