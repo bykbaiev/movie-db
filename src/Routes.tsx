@@ -1,4 +1,4 @@
-import {Heading} from '@chakra-ui/react';
+import { Heading } from '@chakra-ui/react';
 import { COLOR } from 'css-constants';
 import {
   Route,
@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom';
 
 import { GeneralLayout } from './layouts/General'
+import { UpcomingMoviesList } from './containers/UpcomingMovies';
 
 export const Routes = () => (
   <Switch>
@@ -17,9 +18,14 @@ export const Routes = () => (
   </Switch>
 );
 
-const BasePage = ({message}: {message: string}) => (<Heading color={COLOR.WHITE} as="h1" size="xl">{message}</Heading>);
+const BasePage = ({ message }: { message: string }) => (<Heading color={COLOR.WHITE} as="h1" size="xl">{message}</Heading>);
 
-const Home = () => (<BasePage message="Home page" />);
+const Home = () => (
+  <>
+    <BasePage message="Home page" />
+    <UpcomingMoviesList />
+  </>
+);
 
 const BlankScreen = () => (<BasePage message="Empty Ooops!" />);
 
