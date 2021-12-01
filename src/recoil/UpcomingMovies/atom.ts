@@ -1,7 +1,6 @@
+import { fetchUpcomingMovies } from 'api';
+import { UpcomingMoviesState } from 'models/UpcomingMoviesState';
 import { atom, AtomEffect } from 'recoil';
-
-import { fetchUpcomingMovies } from '../../api';
-import { UpcomingMoviesState } from '../../models/UpcomingMoviesState';
 
 const upcomingMoviesEffect: AtomEffect<UpcomingMoviesState> = ({ setSelf }) => {
   setSelf({ tag: 'Loading' });

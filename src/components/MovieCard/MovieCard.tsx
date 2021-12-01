@@ -1,7 +1,7 @@
+import { Text } from 'components/Text';
+import { Movie } from 'models/Movie';
 import { FC } from 'react';
 import styled from 'styled-components';
-
-import { Movie } from '../../models/Movie';
 
 type Props = {
   movie: Movie;
@@ -15,6 +15,8 @@ const Card = styled.div`
 
 export const MovieCard: FC<Props> = ({ movie }) => (
   <Card>
-    {movie?.id || 'Unknown movie'}
+    <Text>
+      {movie?.id || 'Unknown movie'}
+    </Text>
   </Card>
 );

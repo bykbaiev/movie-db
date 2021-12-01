@@ -1,9 +1,8 @@
-import {useRecoilValue} from 'recoil';
-
-import { MovieCard } from '../../components/MovieCard';
-import { Spinner } from '../../components/Spinner';
-import {Loaded,Loading,UpcomingMoviesState} from '../../models/UpcomingMoviesState';
-import {UpcomingMovies} from '../../recoil/UpcomingMovies';
+import { MovieList } from 'components/MovieList/MovieList';
+import { Spinner } from 'components/Spinner';
+import { Loaded, Loading, UpcomingMoviesState } from 'models/UpcomingMoviesState';
+import { useRecoilValue } from 'recoil';
+import { UpcomingMovies } from 'recoil/UpcomingMovies';
 
 const isLoaded = (data: UpcomingMoviesState): data is Loaded =>
   data.tag === 'Loaded';
@@ -21,7 +20,7 @@ export const UpcomingMoviesList = () => {
     <>
       {loading
         ? (<Spinner />)
-        : (<div>{movies.map((movie, idx) => <MovieCard key={movie?.id || idx} movie={movie} />)}</div>)}
+        : (<MovieList movies={movies} />)}
     </>
   );
 };

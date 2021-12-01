@@ -1,12 +1,11 @@
 import { Heading } from '@chakra-ui/react';
 import { COLOR } from 'css-constants';
+import { UpcomingMoviesList } from 'containers/UpcomingMovies';
+import { GeneralLayout } from 'layouts/General'
 import {
   Route,
   Routes as Switch
 } from 'react-router-dom';
-
-import { GeneralLayout } from './layouts/General'
-import { UpcomingMoviesList } from './containers/UpcomingMovies';
 
 export const Routes = () => (
   <Switch>
