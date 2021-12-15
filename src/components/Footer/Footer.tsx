@@ -1,23 +1,17 @@
-import { Text } from '@chakra-ui/react';
-import styled from 'styled-components';
+import { Box, Text } from '@chakra-ui/react';
 
 export const FOOTER_HEIGHT = '50px';
-
-const Wrapper = styled.div`
-  height: ${FOOTER_HEIGHT};
-  line-height: ${FOOTER_HEIGHT};
-`;
 
 export const Footer = () => {
   const year = new Date().getFullYear();
 
   return (
-    <Wrapper>
+    <Box height={FOOTER_HEIGHT} lineHeight={FOOTER_HEIGHT}>
       <Text
         align="center"
         fontSize="xl">
         {year}. None of the rights reserved.
       </Text>
-    </Wrapper>
+    </Box>
   );
 };

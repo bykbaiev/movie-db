@@ -1,39 +1,16 @@
+import { Box } from '@chakra-ui/react';
 import { Footer, FOOTER_HEIGHT } from 'components/Footer';
 import { Header } from 'components/Header';
 import { Outlet } from 'react-router-dom';
-import styled from 'styled-components';
 
-type Props = {
-  darkMode: boolean;
-};
-
-const Background = styled.div<Props>`
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-color: ${props => props.darkMode ? '#000' : '#fff'};
-`;
-
-const Column = styled.main`
-  margin: 0 auto;
-  width: 100%;
-  max-width: 1024px;
-`;
-
-const Content = styled.div`
-  min-height: calc(100vh - ${FOOTER_HEIGHT});
-`;
-
-export const GeneralLayout = ({darkMode}: Props) => (
-  <Background darkMode={darkMode}>
-    <Column>
-      <Content>
+export const GeneralLayout = () => (
+  <Box pos="fixed" top={0} right={0} bottom={0} left={0} bgColor="#000">
+    <Box m="0 auto" w="100%" maxW="1024px">
+      <Box minH={`calc(100vh - ${FOOTER_HEIGHT})`}>
         <Header />
         <Outlet />
-      </Content>
+      </Box>
       <Footer />
-    </Column>
-  </Background>  
+    </Box>
+  </Box>
 );
