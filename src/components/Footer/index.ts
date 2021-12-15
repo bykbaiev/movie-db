@@ -1,1 +1,1 @@
-export {Footer, FOOTER_HEIGHT} from './Footer';
+export {Footer} from './Footer';

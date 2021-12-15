@@ -1,39 +1,28 @@
-import { Footer, FOOTER_HEIGHT } from 'components/Footer';
+import { Box } from '@chakra-ui/react';
+import { Footer } from 'components/Footer';
 import { Header } from 'components/Header';
+import { BG_COLOR, FOOTER_HEIGHT, HEADER_HEIGHT, MAX_WIDTH } from 'css-constants';
 import { Outlet } from 'react-router-dom';
-import styled from 'styled-components';
 
-type Props = {
-  darkMode: boolean;
-};
-
-const Background = styled.div<Props>`
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-color: ${props => props.darkMode ? '#000' : '#fff'};
-`;
-
-const Column = styled.main`
-  margin: 0 auto;
-  width: 100%;
-  max-width: 1024px;
-`;
-
-const Content = styled.div`
-  min-height: calc(100vh - ${FOOTER_HEIGHT});
-`;
-
-export const GeneralLayout = ({darkMode}: Props) => (
-  <Background darkMode={darkMode}>
-    <Column>
-      <Content>
-        <Header />
+export const GeneralLayout = () => (
+  <Box
+    pos="fixed"
+    top={0}
+    right={0}
+    bottom={0}
+    left={0}
+    bgColor={BG_COLOR}
+  >
+    <Header />
+    <Box
+      m="0 auto"
+      w="100%"
+      maxW={MAX_WIDTH}
+    >
+      <Box minH={`calc(100vh - ${FOOTER_HEIGHT}px - ${HEADER_HEIGHT}px)`}>
         <Outlet />
-      </Content>
+      </Box>
       <Footer />
-    </Column>
-  </Background>  
+    </Box>
+  </Box>
 );
