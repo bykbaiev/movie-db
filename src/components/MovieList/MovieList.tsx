@@ -1,22 +1,23 @@
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
-import { MovieCard } from 'components/MovieCard';
-import { Movie } from 'models/Movie';
+import { MovieId } from 'models/Movie';
 import { FC } from 'react';
 import { Carousel } from 'react-responsive-carousel';
 
+import { MovieSlide } from './MovieSlide';
+
 type Props = {
-  movies: Array<Movie>;
+  ids: Array<MovieId>;
 };
 
-export const MovieList: FC<Props> = ({ movies }) => {
+export const MovieList: FC<Props> = ({ ids }) => {
   return (
     <Carousel
       infiniteLoop
       centerMode
       showStatus={false}
     >
-      {movies.map((movie, idx) => <MovieCard key={movie?.id || idx} movie={movie} />)}
+      {ids.map(id => <MovieSlide id={id} key={id} />)}
     </Carousel>
   );
 };
