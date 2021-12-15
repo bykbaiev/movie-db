@@ -1,7 +1,7 @@
 import { Box, Heading, HStack,Image, Text } from '@chakra-ui/react';
 import { COLOR } from 'css-constants';
 import { MovieDetails, MovieId } from 'models/Movie';
-import { Failure, Loaded, MovieState } from 'models/MovieState';
+import { isFailure,isLoaded } from 'models/MovieState';
 import { FC } from 'react';
 import { useRecoilValue } from 'recoil';
 import { Movie } from 'recoil/Movie';
@@ -61,12 +61,6 @@ const Wrapper: FC = ({ children }) => (
     {children}
   </Box>
 );
-
-const isLoaded = (data: MovieState): data is Loaded =>
-  data.tag === 'Loaded';
-
-const isFailure = (data: MovieState): data is Failure =>
-  data.tag === 'Failure';
 
 export const MovieSlide: FC<Props> = ({ id }) => {
   const movie = useRecoilValue(Movie(id));
