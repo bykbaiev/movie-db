@@ -1,3 +1,4 @@
+import { Box } from 'components/Box';
 import { Text } from 'components/Text';
 import { Movie } from 'models/Movie';
 import { FC } from 'react';
@@ -7,9 +8,8 @@ type Props = {
   movie: Movie;
 };
 
-const Card = styled.div`
-  padding: 16px;
-  width: 400px;
+const Card = styled(Box)`
+  padding: 1rem;
   height: 500px;
 `
 
