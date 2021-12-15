@@ -23,7 +23,6 @@ const BasePage = ({ message }: { message: string }) => (<Heading color={COLOR.WH
 
 const Home = () => (
   <>
-    <BasePage message="Home page" />
     <Suspense fallback={<Spinner />}>
       <UpcomingMoviesList />
     </Suspense>
