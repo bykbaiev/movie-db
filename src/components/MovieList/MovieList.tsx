@@ -1,5 +1,6 @@
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
+import { Box } from '@chakra-ui/react';
 import { MovieId } from 'models/Movie';
 import { FC } from 'react';
 import { Carousel } from 'react-responsive-carousel';
@@ -12,12 +13,14 @@ type Props = {
 
 export const MovieList: FC<Props> = ({ ids }) => {
   return (
-    <Carousel
-      infiniteLoop
-      centerMode
-      showStatus={false}
-    >
-      {ids.map(id => <MovieSlide id={id} key={id} />)}
-    </Carousel>
+    <Box maxW={850} w="100%" m='0 auto'>
+      <Carousel
+        infiniteLoop
+        showIndicators={false}
+        showStatus={false}
+      >
+        {ids.map(id => <MovieSlide id={id} key={id} />)}
+      </Carousel>
+    </Box>
   );
 };
