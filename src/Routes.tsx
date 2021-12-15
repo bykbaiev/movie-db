@@ -1,4 +1,5 @@
 import {Heading} from '@chakra-ui/react';
+import { COLOR } from 'css-constants';
 import {
   Route,
   Routes as Switch
@@ -16,7 +17,7 @@ export const Routes = () => (
   </Switch>
 );
 
-const BasePage = ({message}: {message: string}) => (<Heading as="h1" size="xl">{message}</Heading>);
+const BasePage = ({message}: {message: string}) => (<Heading color={COLOR.WHITE} as="h1" size="xl">{message}</Heading>);
 
 const Home = () => (<BasePage message="Home page" />);
 

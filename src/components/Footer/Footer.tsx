@@ -1,15 +1,17 @@
 import { Box, Text } from '@chakra-ui/react';
-
-export const FOOTER_HEIGHT = '50px';
+import { COLOR, FOOTER_HEIGHT } from 'css-constants';
 
 export const Footer = () => {
   const year = new Date().getFullYear();
 
   return (
-    <Box height={FOOTER_HEIGHT} lineHeight={FOOTER_HEIGHT}>
+    <Box height={FOOTER_HEIGHT}>
       <Text
         align="center"
-        fontSize="xl">
+        fontSize="xl"
+        lineHeight="50px"
+        color={COLOR.WHITE}
+      >
         {year}. None of the rights reserved.
       </Text>
     </Box>
