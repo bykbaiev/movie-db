@@ -1,4 +1,4 @@
-import { Text } from 'components/Text';
+import { Text } from '@chakra-ui/react';
 import styled from 'styled-components';
 
 export const FOOTER_HEIGHT = '50px';
@@ -14,8 +14,8 @@ export const Footer = () => {
   return (
     <Wrapper>
       <Text
-        textAlign="center"
-        fontSize="1.1rem">
+        align="center"
+        fontSize="xl">
         {year}. None of the rights reserved.
       </Text>
     </Wrapper>
