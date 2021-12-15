@@ -1,35 +1,18 @@
 import { Box, Heading, HStack,Image, Text } from '@chakra-ui/react';
 import { COLOR } from 'css-constants';
 import { MovieDetails, MovieId } from 'models/Movie';
-import { Failure, Loaded, MovieState } from 'models/MovieState';
+import { isFailure,isLoaded } from 'models/MovieState';
 import { FC } from 'react';
 import { useRecoilValue } from 'recoil';
-import { Movie } from 'recoil/UpcomingMovies';
+import { Movie } from 'recoil/Movie';
 import { getImagePath, getReadableRuntime } from 'utils';
 
 type Props = {
   id: MovieId;
 };
 
-// poster_path?: string;
-//   adult?: boolean;
-//   overview?: string;
-//   release_date?: string;
-//   genre_ids?: Array<number>;
-//   id?: number;
-//   original_title?: string;
-//   original_language?: string;
-//   title?: string;
-//   backdrop_path?: string;
-//   popularity?: number;
-//   vote_count?: number;
-//   video?: boolean;
-//   vote_average?: number;
-
 const SLIDE_HEIGHT = 445;
-
 const PREVIEW_WIDTH = 165;
-
 const GRADIENT = `linear-gradient(
   rgba(0, 0, 0, 0.0) 0%,
   rgba(0, 0, 0, 0.0) 70%,
@@ -38,8 +21,6 @@ const GRADIENT = `linear-gradient(
   rgba(0, 0, 0, 0.9) 95%,
   rgba(0, 0, 0, 1.0) 100%
 )`;
-
-
 
 const Wrapper: FC = ({ children }) => (
   <Box
@@ -61,12 +42,6 @@ const Wrapper: FC = ({ children }) => (
     {children}
   </Box>
 );
-
-const isLoaded = (data: MovieState): data is Loaded =>
-  data.tag === 'Loaded';
-
-const isFailure = (data: MovieState): data is Failure =>
-  data.tag === 'Failure';
 
 export const MovieSlide: FC<Props> = ({ id }) => {
   const movie = useRecoilValue(Movie(id));

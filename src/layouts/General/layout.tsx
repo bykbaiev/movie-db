@@ -6,11 +6,7 @@ import { Outlet } from 'react-router-dom';
 
 export const GeneralLayout = () => (
   <Box
-    pos='fixed'
-    top={0}
-    right={0}
-    bottom={0}
-    left={0}
+    minH='100vh'
     bgColor={BG_COLOR}
   >
     <Header />

@@ -1,5 +1,6 @@
 import { Heading } from '@chakra-ui/react';
 import { Spinner } from 'components/Spinner';
+import { PopularMoviesList } from 'containers/PopularMovies';
 import { UpcomingMoviesList } from 'containers/UpcomingMovies';
 import { COLOR } from 'css-constants';
 import { GeneralLayout } from 'layouts/General'
@@ -12,6 +13,7 @@ import {
 export const Routes = () => (
   <Switch>
     <Route path='/' element={<GeneralLayout />}>
+      <Route path='*' element={<BlankScreen />} />
       <Route path='/' element={<Home />} />
       <Route path='/movie' element={<BlankScreen />} />
       <Route path='/movie/:id' element={<Movie />} />
@@ -25,6 +27,10 @@ const Home = () => (
   <>
     <Suspense fallback={<Spinner />}>
       <UpcomingMoviesList />
+    </Suspense>
+
+    <Suspense fallback={<Spinner />}>
+      <PopularMoviesList />
     </Suspense>
   </>
 );

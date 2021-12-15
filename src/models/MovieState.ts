@@ -13,3 +13,9 @@ export type Failure = TaggedState<'Failure'> & {
 export type MovieState =
   Loaded |
   Failure;
+
+export const isLoaded = (data: MovieState): data is Loaded =>
+  data.tag === 'Loaded';
+
+export const isFailure = (data: MovieState): data is Failure =>
+  data.tag === 'Failure';

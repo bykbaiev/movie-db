@@ -1,13 +1,13 @@
-import { fetchUpcomingMovies } from 'api';
-import { Failure, isFailure,isLoaded, Loaded, UpcomingMoviesState } from 'models/UpcomingMoviesState';
+import { fetchPopularMovies } from 'api';
+import { Failure, isFailure,isLoaded, Loaded, PopularMoviesState } from 'models/PopularMoviesState';
 import { atom, DefaultValue } from 'recoil';
 
-export const UpcomingMoviesIds = atom<UpcomingMoviesState>({
-  key: 'UpcomingMoviesIds',
+export const PopularMoviesIds = atom<PopularMoviesState>({
+  key: 'PopularMoviesIds',
   default: { tag: 'Initial' },
   effects_UNSTABLE: [
     ({ onSet, setSelf }) => {
-      setSelf(fetchUpcomingMovies()
+      setSelf(fetchPopularMovies()
         .then(ids => <Loaded>{ tag: 'Loaded', ids })
         .catch(error => <Failure>{ tag: 'Failure', error }));
 

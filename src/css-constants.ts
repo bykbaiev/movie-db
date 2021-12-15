@@ -9,5 +9,7 @@ export const HEADER_BG_COLOR = 'rgb(18, 18, 18)';
 export const BG_COLOR = '#000';
 
 export const COLOR = {
-  WHITE: '#fff'
+  WHITE: '#fff',
+  YELLOW: '#f5c518',
+  BLUE: '#5799ef'
 };
