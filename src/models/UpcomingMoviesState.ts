@@ -1,10 +1,6 @@
-import { Movie } from './Movie';
-
-type TaggedState<T extends string> = { tag: T };
-
-export type Initial = TaggedState<'Initial'>;
-
-export type Loading = TaggedState<'Loading'>;
+import { ErrorResponse } from './ErrorResponse';
+import { Movie, MovieId } from './Movie';
+import { Initial, TaggedState } from './TaggedState';
 
 export type UpcomingMoviesResponse = {
   page?: number;
@@ -18,20 +14,15 @@ export type UpcomingMoviesResponse = {
 };
 
 export type Loaded = TaggedState<'Loaded'> & {
-  response: UpcomingMoviesResponse;
+  ids: Array<MovieId>;
 };
 
-type UpcomingMoviesError = {
-  status_message?: string;
-  status_code?: number;
-}
-
 export type Failure = TaggedState<'Failure'> & {
-  error: UpcomingMoviesError;
+  error: ErrorResponse;
+  ids?: Array<MovieId>;
 };
 
 export type UpcomingMoviesState =
   Initial |
-  Loading |
   Loaded |
   Failure;
