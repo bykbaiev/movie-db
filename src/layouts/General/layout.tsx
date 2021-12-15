@@ -6,7 +6,7 @@ import { Outlet } from 'react-router-dom';
 
 export const GeneralLayout = () => (
   <Box
-    pos="fixed"
+    pos='fixed'
     top={0}
     right={0}
     bottom={0}
@@ -15,8 +15,8 @@ export const GeneralLayout = () => (
   >
     <Header />
     <Box
-      m="0 auto"
-      w="100%"
+      m='0 auto'
+      w='100%'
       maxW={MAX_WIDTH}
     >
       <Box minH={`calc(100vh - ${FOOTER_HEIGHT}px - ${HEADER_HEIGHT}px)`}>
