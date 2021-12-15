@@ -1,4 +1,5 @@
 import { MovieDetails, MovieId } from 'models/Movie';
+import { PopularMoviesResponse } from 'models/PopularMoviesState';
 import { UpcomingMoviesResponse } from 'models/UpcomingMoviesState';
 
 const BASE_URL = 'https://api.themoviedb.org/3/';
@@ -7,6 +8,7 @@ export const IMAGE_BASE_URL = `https://image.tmdb.org/t/p/w500/`;
 
 const CONTROLLER = {
   UPCOMING: () => 'movie/upcoming',
+  POPULAR: () => 'movie/popular',
   MOVIE_DETAILS: ({ id }: Record<string, string | number>) => `movie/${id}`,
   VIDEOS: ({ id }: Record<string, string | number>) => `movie/${id}/videos`
 } as const;
@@ -40,6 +42,11 @@ export const fetchMovieDetails = async (id: number): Promise<MovieDetails> => {
 
 export const fetchUpcomingMovies = async (): Promise<Array<MovieId>> => {
   return fetchMovies<UpcomingMoviesResponse>('UPCOMING', { page: '1', language: 'en-US' })
+    .then(data => data.results?.map(({ id }) => id) || []);
+};
+
+export const fetchPopularMovies = async (): Promise<Array<MovieId>> => {
+  return fetchMovies<PopularMoviesResponse>('POPULAR', { page: '1', language: 'en-US' })
     .then(data => data.results?.map(({ id }) => id) || []);
 };
 
