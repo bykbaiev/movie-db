@@ -1,5 +1,5 @@
 import { Heading } from '@chakra-ui/react';
-import { Spinner } from 'components/Spinner';
+import { MovieListSkeleton } from 'components/MovieList';
 import { PopularMoviesList } from 'containers/PopularMovies';
 import { UpcomingMoviesList } from 'containers/UpcomingMovies';
 import { COLOR } from 'css-constants';
@@ -25,11 +25,11 @@ const BasePage = ({ message }: { message: string }) => (<Heading color={COLOR.WH
 
 const Home = () => (
   <>
-    <Suspense fallback={<Spinner />}>
+    <Suspense fallback={<MovieListSkeleton />}>
       <UpcomingMoviesList />
     </Suspense>
 
-    <Suspense fallback={<Spinner />}>
+    <Suspense fallback={<MovieListSkeleton />}>
       <PopularMoviesList />
     </Suspense>
   </>
