@@ -1,1 +1,1 @@
-export {MovieList} from './MovieList';
+export {MovieList, MultipleMovieList} from './MovieList';

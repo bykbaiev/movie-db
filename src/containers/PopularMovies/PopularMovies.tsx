@@ -1,28 +1,14 @@
 import { Box, Text } from '@chakra-ui/react';
-import { MovieList } from 'components/MovieList';
+import { MultipleMovieList } from 'components/MovieList';
 import { SectionHeading } from 'components/SectionHeading';
 import { COLOR } from 'css-constants';
-import { isFailure,isLoaded, PopularMoviesState } from 'models/PopularMoviesState';
+import { isFailure, isLoaded, PopularMoviesState } from 'models/PopularMoviesState';
 import { FC } from 'react';
 import { useRecoilValue } from 'recoil';
 import { PopularMoviesIds } from 'recoil/PopularMovies';
 
 export const PopularMoviesList = () => {
   const idsState: PopularMoviesState = useRecoilValue(PopularMoviesIds);
-
-  if (isFailure(idsState)) {
-    const message = (<Text color={COLOR.WHITE}>Something went wrong!</Text>);
-    if (idsState.ids) {
-      return (
-        <>
-          {message}
-          <MovieList ids={idsState.ids} />
-        </>
-      );
-    } else {
-      return message;
-    }
-  }
 
   return (
     <Box pt={4} m='0 auto'>
@@ -40,13 +26,21 @@ type ContentProps = {
 }
 
 const Content: FC<ContentProps> = ({ idsState }) => {
+  const settings = {
+    slidesToShow: 6,
+    slidesToScroll: 6
+  };
+
   if (isFailure(idsState)) {
     const message = (<Text color={COLOR.WHITE}>Something went wrong!</Text>);
     if (idsState.ids) {
       return (
         <>
           {message}
-          <MovieList ids={idsState.ids} />
+          <MultipleMovieList
+            ids={idsState.ids}
+            settings={settings}
+          />
         </>
       );
     } else {
@@ -56,7 +50,7 @@ const Content: FC<ContentProps> = ({ idsState }) => {
 
   return (
     <>
-      {isLoaded(idsState) && <MovieList ids={idsState.ids} />}
+      {isLoaded(idsState) && <MultipleMovieList ids={idsState.ids} settings={settings} />}
     </>
   );
 };

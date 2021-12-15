@@ -9,8 +9,6 @@ type Props = {
   link: string;
 }
 
-const YELLOW = '#f5c518';
-
 export const SectionHeading: FC<Props> = ({ title, link }) => {
   const baseCls = `section-heading`;
 
@@ -26,7 +24,7 @@ export const SectionHeading: FC<Props> = ({ title, link }) => {
           content: `''`,
           display: 'block',
           position: 'absolute',
-          backgroundColor: YELLOW,
+          backgroundColor: COLOR.YELLOW,
           width: '4px',
           height: '100%',
           borderRadius: '4px',
@@ -39,7 +37,7 @@ export const SectionHeading: FC<Props> = ({ title, link }) => {
           boxSize={45}
           sx={{
             [`.${baseCls}:hover &`]: {
-              color: YELLOW,
+              color: COLOR.YELLOW,
             },
           }} />
       </Heading>
