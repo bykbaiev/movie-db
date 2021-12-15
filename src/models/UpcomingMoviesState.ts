@@ -26,3 +26,9 @@ export type UpcomingMoviesState =
   Initial |
   Loaded |
   Failure;
+
+export const isFailure = (data: UpcomingMoviesState): data is Failure =>
+  data.tag === 'Failure';
+
+export const isLoaded = (data: UpcomingMoviesState): data is Loaded =>
+  data.tag === 'Loaded';

@@ -1,12 +1,6 @@
 import { fetchUpcomingMovies } from 'api';
-import { Failure, Loaded, UpcomingMoviesState } from 'models/UpcomingMoviesState';
+import { Failure, isFailure,isLoaded, Loaded, UpcomingMoviesState } from 'models/UpcomingMoviesState';
 import { atom, DefaultValue } from 'recoil';
-
-const isFailure = (data: UpcomingMoviesState): data is Failure =>
-  data.tag === 'Failure';
-
-const isLoaded = (data: UpcomingMoviesState): data is Loaded =>
-  data.tag === 'Loaded';
 
 export const UpcomingMoviesIds = atom<UpcomingMoviesState>({
   key: 'UpcomingMoviesIds',
