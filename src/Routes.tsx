@@ -1,7 +1,9 @@
 import { Heading } from '@chakra-ui/react';
 import { COLOR } from 'css-constants';
+import { Spinner } from 'components/Spinner';
 import { UpcomingMoviesList } from 'containers/UpcomingMovies';
 import { GeneralLayout } from 'layouts/General'
+import { Suspense } from 'react';
 import {
   Route,
   Routes as Switch
@@ -22,7 +24,9 @@ const BasePage = ({ message }: { message: string }) => (<Heading color={COLOR.WH
 const Home = () => (
   <>
     <BasePage message="Home page" />
-    <UpcomingMoviesList />
+    <Suspense fallback={<Spinner />}>
+      <UpcomingMoviesList />
+    </Suspense>
   </>
 );
 
