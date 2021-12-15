@@ -4,7 +4,7 @@ import { MovieDetails, MovieId } from 'models/Movie';
 import { Failure, Loaded, MovieState } from 'models/MovieState';
 import { FC } from 'react';
 import { useRecoilValue } from 'recoil';
-import { Movie } from 'recoil/UpcomingMovies';
+import { Movie } from 'recoil/Movie';
 import { getImagePath, getReadableRuntime } from 'utils';
 
 type Props = {

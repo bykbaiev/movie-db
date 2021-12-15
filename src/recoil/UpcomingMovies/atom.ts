@@ -1,8 +1,6 @@
-import { fetchMovieDetails, fetchUpcomingMovies } from 'api';
-import { MovieId } from 'models/Movie';
-import { Failure as MovieFailure, Loaded as MovieLoaded, MovieState } from 'models/MovieState';
+import { fetchUpcomingMovies } from 'api';
 import { Failure, Loaded, UpcomingMoviesState } from 'models/UpcomingMoviesState';
-import { atom, DefaultValue, selectorFamily } from 'recoil';
+import { atom, DefaultValue } from 'recoil';
 
 const isFailure = (data: UpcomingMoviesState): data is Failure =>
   data.tag === 'Failure';
@@ -26,25 +24,4 @@ export const UpcomingMoviesIds = atom<UpcomingMoviesState>({
       })
     }
   ]
-});
-
-// TODO add caching for API ?
-export const Movie = selectorFamily<MovieState, MovieId>({
-  key: 'Movie',
-  get: (id) => async () => {
-    if (!id) {
-      return <MovieFailure>{ tag: 'Failure' };
-    }
-
-    try {
-      const details = await fetchMovieDetails(id);
-
-      return <MovieLoaded>{
-        tag: 'Loaded',
-        data: details
-      };
-    } catch (error: unknown) {
-      return <MovieFailure>{ tag: 'Failure' };
-    }
-  }
 });

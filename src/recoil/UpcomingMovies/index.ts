@@ -1,1 +1,1 @@
-export {Movie, UpcomingMoviesIds} from './atom';
+export {UpcomingMoviesIds} from './atom';
