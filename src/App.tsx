@@ -11,7 +11,7 @@ export function App() {
       <RecoilRoot>
         <ChakraProvider resetCSS>
         <Suspense fallback={<Spinner />}>
-          <div className="App">
+          <div className='App'>
             <Routes />
           </div>
           </Suspense>

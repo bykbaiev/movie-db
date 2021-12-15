@@ -7,9 +7,9 @@ export const Footer = () => {
   return (
     <Box height={FOOTER_HEIGHT}>
       <Text
-        align="center"
-        fontSize="xl"
-        lineHeight="50px"
+        align='center'
+        fontSize='xl'
+        lineHeight='50px'
         color={COLOR.WHITE}
       >
         {year}. None of the rights reserved.

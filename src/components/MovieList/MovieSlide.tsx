@@ -44,6 +44,8 @@ const GRADIENT = `linear-gradient(
 const Wrapper: FC = ({ children }) => (
   <Box
     h={SLIDE_HEIGHT}
+    mx={2}
+    overflow='hidden'
     pos='relative'
     _before={{
       content: `''`,
@@ -98,6 +100,7 @@ const Slide: FC<SlideProps> = ({ movie }) => {
           pos='absolute'
           top={0}
           w='100%'
+          h='100%'
           _before={{
             content: `''`,
             display: 'inline-block',
@@ -107,7 +110,7 @@ const Slide: FC<SlideProps> = ({ movie }) => {
             backgroundImage: GRADIENT
           }}>
           <Image
-            boxSize={SLIDE_HEIGHT}
+            w='100%'
             objectFit='cover'
             src={posterSrc}
             alt={movieTitle}

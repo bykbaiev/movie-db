@@ -1,7 +1,7 @@
 import { Flex, Spinner as ChSpinner } from '@chakra-ui/react';
 
 export const Spinner = () => (
-  <Flex w="100%" align="center" justify="center">
+  <Flex w='100%' align='center' justify='center'>
     <ChSpinner
       thickness='4px'
       speed='0.65s'
