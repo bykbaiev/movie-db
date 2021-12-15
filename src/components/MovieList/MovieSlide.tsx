@@ -1,11 +1,9 @@
-import { Box } from 'components/Box';
-import { Text } from 'components/Text';
+import { Box, Text } from '@chakra-ui/react';
 import { MovieDetails, MovieId } from 'models/Movie';
 import { Failure, Loaded, MovieState } from 'models/MovieState';
 import { FC } from 'react';
 import { useRecoilValue } from 'recoil';
 import { Movie } from 'recoil/UpcomingMovies';
-import styled from 'styled-components';
 import { getImagePath } from 'utils';
 
 type Props = {
@@ -27,10 +25,15 @@ type Props = {
 //   video?: boolean;
 //   vote_average?: number;
 
-const Wrapper = styled(Box)`
-  height: 445px;
-  background-size: cover;
-`;
+type WrapperProps = {
+  bgImage?: string | null;
+}
+
+const Wrapper: FC<WrapperProps> = ({ bgImage, children }) => (
+  <Box h={445} bgSize="cover" bgImage={bgImage ? bgImage : undefined}>
+    {children}
+  </Box>
+);
 
 const isLoaded = (data: MovieState): data is Loaded =>
   data.tag === 'Loaded';
@@ -62,5 +65,5 @@ const Slide: FC<SlideProps> = ({ movie }) => {
   // eslint-disable-next-line
   const { backdrop_path, overview, id, poster_path, video, title, original_title } = movie;
 
-  return (<Wrapper backgroundImage={getImagePath(backdrop_path)}>{title || original_title}</Wrapper>);
+  return (<Wrapper bgImage={getImagePath(backdrop_path)}>{title || original_title}</Wrapper>);
 };

@@ -1,5 +1,6 @@
+import { Text } from '@chakra-ui/react';
 import { MovieList } from 'components/MovieList';
-import { Text } from 'components/Text';
+import { COLOR } from 'css-constants';
 import { Failure, Loaded, UpcomingMoviesState } from 'models/UpcomingMoviesState';
 import { useRecoilValue } from 'recoil';
 import { UpcomingMoviesIds } from 'recoil/UpcomingMovies';
@@ -14,7 +15,7 @@ export const UpcomingMoviesList = () => {
   const idsState = useRecoilValue(UpcomingMoviesIds);
 
   if (isFailure(idsState)) {
-    const message = (<Text>Something went wrong!</Text>);
+    const message = (<Text color={COLOR.WHITE}>Something went wrong!</Text>);
     if (idsState.ids) {
       return (
         <>

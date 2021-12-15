@@ -1,3 +1,13 @@
+import { Flex, Spinner as ChSpinner } from '@chakra-ui/react';
+
 export const Spinner = () => (
-  <div>Loading...</div>
+  <Flex w="100%" align="center" justify="center">
+    <ChSpinner
+      thickness='4px'
+      speed='0.65s'
+      emptyColor='gray.200'
+      color='blue.500'
+      size='xl'
+    />
+  </Flex>
 );
