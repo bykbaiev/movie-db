@@ -1,7 +1,7 @@
 import { Heading } from '@chakra-ui/react';
-import { COLOR } from 'css-constants';
 import { Spinner } from 'components/Spinner';
 import { UpcomingMoviesList } from 'containers/UpcomingMovies';
+import { COLOR } from 'css-constants';
 import { GeneralLayout } from 'layouts/General'
 import { Suspense } from 'react';
 import {
