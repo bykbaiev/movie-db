@@ -1,11 +1,13 @@
-import {Heading} from '@chakra-ui/react';
+import { Heading } from '@chakra-ui/react';
+import { Spinner } from 'components/Spinner';
+import { UpcomingMoviesList } from 'containers/UpcomingMovies';
 import { COLOR } from 'css-constants';
+import { GeneralLayout } from 'layouts/General'
+import { Suspense } from 'react';
 import {
   Route,
   Routes as Switch
 } from 'react-router-dom';
-
-import { GeneralLayout } from './layouts/General'
 
 export const Routes = () => (
   <Switch>
@@ -17,9 +19,15 @@ export const Routes = () => (
   </Switch>
 );
 
-const BasePage = ({message}: {message: string}) => (<Heading color={COLOR.WHITE} as="h1" size="xl">{message}</Heading>);
+const BasePage = ({ message }: { message: string }) => (<Heading color={COLOR.WHITE} as="h1" size="xl">{message}</Heading>);
 
-const Home = () => (<BasePage message="Home page" />);
+const Home = () => (
+  <>
+    <Suspense fallback={<Spinner />}>
+      <UpcomingMoviesList />
+    </Suspense>
+  </>
+);
 
 const BlankScreen = () => (<BasePage message="Empty Ooops!" />);
 
