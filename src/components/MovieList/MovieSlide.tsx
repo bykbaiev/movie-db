@@ -1,10 +1,11 @@
-import { Box, Text } from '@chakra-ui/react';
+import { Box, Heading, HStack,Image, Text } from '@chakra-ui/react';
+import { COLOR } from 'css-constants';
 import { MovieDetails, MovieId } from 'models/Movie';
 import { Failure, Loaded, MovieState } from 'models/MovieState';
 import { FC } from 'react';
 import { useRecoilValue } from 'recoil';
 import { Movie } from 'recoil/UpcomingMovies';
-import { getImagePath } from 'utils';
+import { getImagePath, getReadableRuntime } from 'utils';
 
 type Props = {
   id: MovieId;
@@ -25,12 +26,36 @@ type Props = {
 //   video?: boolean;
 //   vote_average?: number;
 
-type WrapperProps = {
-  bgImage?: string | null;
-}
+const SLIDE_HEIGHT = 445;
 
-const Wrapper: FC<WrapperProps> = ({ bgImage, children }) => (
-  <Box h={445} bgSize="cover" bgImage={bgImage ? bgImage : undefined}>
+const PREVIEW_WIDTH = 165;
+
+const GRADIENT = `linear-gradient(
+  rgba(0, 0, 0, 0.0) 0%,
+  rgba(0, 0, 0, 0.0) 70%,
+  rgba(0, 0, 0, 0.2) 80%,
+  rgba(0, 0, 0, 0.7) 90%,
+  rgba(0, 0, 0, 0.9) 95%,
+  rgba(0, 0, 0, 1.0) 100%
+)`;
+
+
+
+const Wrapper: FC = ({ children }) => (
+  <Box
+    h={SLIDE_HEIGHT}
+    pos='relative'
+    _before={{
+      content: `''`,
+      display: 'block',
+      position: 'absolute',
+      width: '100%',
+      height: '100%',
+      backgroundColor: 'rgba(0,0,0,0.4)',
+      zIndex: 1,
+      top: 0,
+    }}
+  >
     {children}
   </Box>
 );
@@ -62,8 +87,59 @@ type SlideProps = {
 }
 
 const Slide: FC<SlideProps> = ({ movie }) => {
-  // eslint-disable-next-line
-  const { backdrop_path, overview, id, poster_path, video, title, original_title } = movie;
+  const { backdrop_path, poster_path, title, original_title, runtime } = movie;
+  const movieTitle = title || original_title;
+  const posterSrc = getImagePath(backdrop_path);
 
-  return (<Wrapper bgImage={getImagePath(backdrop_path)}>{title || original_title}</Wrapper>);
+  return (
+    <Wrapper>
+      {posterSrc && (
+        <Box
+          pos='absolute'
+          top={0}
+          w='100%'
+          _before={{
+            content: `''`,
+            display: 'inline-block',
+            position: 'absolute',
+            width: '100%',
+            height: '100%',
+            backgroundImage: GRADIENT
+          }}>
+          <Image
+            boxSize={SLIDE_HEIGHT}
+            objectFit='cover'
+            src={posterSrc}
+            alt={movieTitle}
+          />
+        </Box>
+      )}
+      <HStack spacing={4} direction='row' align='center' pos='absolute' left={PREVIEW_WIDTH} bottom={0} zIndex={2}>
+        <Heading color={COLOR.WHITE}>
+          {movieTitle}
+        </Heading>
+        {runtime && <Text pt={1} color='gray.50'>{getReadableRuntime(runtime)}</Text>}
+      </HStack>
+      <Preview poster={poster_path} title={movieTitle} />
+    </Wrapper>
+  );
+};
+
+type PreviewProps = {
+  poster: string | null | undefined;
+  title: string | undefined;
+}
+
+const Preview: FC<PreviewProps> = ({ poster, title }) => {
+  const posterSrc = getImagePath(poster);
+
+  if (!posterSrc) {
+    return null;
+  }
+
+  return (
+    <Box w={PREVIEW_WIDTH} pos='absolute' bottom={0} left={0} zIndex={2} boxShadow='base'>
+      <Image boxSize={PREVIEW_WIDTH} objectFit='contain' src={getImagePath(poster) || undefined} alt={title} />
+    </Box>
+  );
 };

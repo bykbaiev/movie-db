@@ -9,5 +9,18 @@ export const compose = <R>(...fns: Array<UnknownFn>): UnknownFn<R> =>
 export const getTargetValue = (event: ChangeEvent<HTMLInputElement>) => event.currentTarget.value;
 
 export const getImagePath = (filePath: string | null | undefined): string | null => (filePath
-? `${IMAGE_BASE_URL}${filePath}`
-: null);
+  ? `${IMAGE_BASE_URL}${filePath}`
+  : null);
+
+const padWithZero = (amount: number): string => amount.toString().padStart(2, '0');
+
+export const getReadableRuntime = (runtime?: number | null): string | null => {
+  if (!runtime) {
+    return null;
+  }
+
+  const hours = Math.floor(runtime / 60);
+  const minutes = (runtime - 60 * hours);
+
+  return `${padWithZero(hours)}:${padWithZero(minutes)}`;
+};

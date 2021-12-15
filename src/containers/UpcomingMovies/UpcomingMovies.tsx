@@ -1,4 +1,4 @@
-import { Text } from '@chakra-ui/react';
+import { Box, Text } from '@chakra-ui/react';
 import { MovieList } from 'components/MovieList';
 import { COLOR } from 'css-constants';
 import { Failure, Loaded, UpcomingMoviesState } from 'models/UpcomingMoviesState';
@@ -29,8 +29,8 @@ export const UpcomingMoviesList = () => {
   }
 
   return (
-    <>
+    <Box pt={4} m='0 auto'>
       {isLoaded(idsState) && <MovieList ids={idsState.ids} />}
-    </>
+    </Box>
   );
 };
