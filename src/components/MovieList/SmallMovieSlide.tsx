@@ -14,10 +14,12 @@ type Props = {
 };
 
 const SLIDE_HEIGHT = 475;
+const SLIDE_WIDTH = 165;
 
 const Wrapper: FC = ({ children }) => (
   <Box
     h={SLIDE_HEIGHT}
+    w={SLIDE_WIDTH}
     mx={2}
     pos='relative'
   >

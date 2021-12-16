@@ -2,6 +2,7 @@ import { Heading } from '@chakra-ui/react';
 import { MovieListSkeleton } from 'components/MovieList';
 import { PopularMoviesList } from 'containers/PopularMovies';
 import { UpcomingMoviesList } from 'containers/UpcomingMovies';
+import { Watchlist } from 'containers/Watchlist';
 import { COLOR } from 'css-constants';
 import { GeneralLayout } from 'layouts/General'
 import { Suspense } from 'react';
@@ -27,6 +28,10 @@ const Home = () => (
   <>
     <Suspense fallback={<MovieListSkeleton />}>
       <UpcomingMoviesList />
+    </Suspense>
+
+    <Suspense fallback={<MovieListSkeleton />}>
+      <Watchlist />
     </Suspense>
 
     <Suspense fallback={<MovieListSkeleton />}>
