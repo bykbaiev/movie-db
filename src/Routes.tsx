@@ -1,11 +1,11 @@
-import { Heading } from '@chakra-ui/react';
+import { Box, Heading } from '@chakra-ui/react';
 import { MovieListSkeleton } from 'components/MovieList';
 import { PopularMoviesList } from 'containers/PopularMovies';
 import { UpcomingMoviesList } from 'containers/UpcomingMovies';
 import { Watchlist } from 'containers/Watchlist';
 import { COLOR } from 'css-constants';
 import { GeneralLayout } from 'layouts/General'
-import { Suspense } from 'react';
+import { FC, Suspense } from 'react';
 import {
   Route,
   Routes as Switch
@@ -24,18 +24,30 @@ export const Routes = () => (
 
 const BasePage = ({ message }: { message: string }) => (<Heading color={COLOR.WHITE} as='h1' size='xl'>{message}</Heading>);
 
+const Section: FC = ({ children }) => (
+  <Box mb={4}>
+    {children}
+  </Box>
+)
+
 const Home = () => (
   <>
     <Suspense fallback={<MovieListSkeleton />}>
-      <UpcomingMoviesList />
+      <Section>
+        <UpcomingMoviesList />
+      </Section>
     </Suspense>
 
     <Suspense fallback={<MovieListSkeleton />}>
-      <Watchlist />
+      <Section>
+        <Watchlist />
+      </Section>
     </Suspense>
 
     <Suspense fallback={<MovieListSkeleton />}>
-      <PopularMoviesList />
+      <Section>
+        <PopularMoviesList />
+      </Section>
     </Suspense>
   </>
 );
