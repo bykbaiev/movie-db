@@ -5,18 +5,21 @@ import { RecoilObserver } from 'utils';
 
 import { Search } from './Search';
 
-describe('The form state should', () => {
-  test('change on search query change', () => {
+const getSearchBox = (onChange) => {
+  render(
+    <RecoilRoot>
+      <RecoilObserver node={SearchQuery} onChange={onChange} />
+      <Search />
+    </RecoilRoot>
+  );
+
+  return screen.getByRole('search');
+};
+
+describe('#Search', () => {
+  test('the state should change on search query change', () => {
     const onChange = jest.fn();
-
-    render(
-      <RecoilRoot>
-        <RecoilObserver node={SearchQuery} onChange={onChange} />
-        <Search />
-      </RecoilRoot>
-    );
-
-    const searchBox = screen.getByRole('search');
+    const searchBox = getSearchBox(onChange);
     fireEvent.change(searchBox, { target: { value: 'query' } });
 
     expect(onChange).toHaveBeenCalledTimes(2);
