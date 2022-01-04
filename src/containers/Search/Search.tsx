@@ -7,6 +7,7 @@ export const Search = () => {
 
   return (
     <input
+      role="search"
       value={value}
       onChange={onChange}
     />
