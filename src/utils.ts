@@ -1,5 +1,6 @@
 import { IMAGE_BASE_URL } from 'api';
-import { ChangeEvent } from 'react';
+import { ChangeEvent,useEffect } from 'react';
+import { RecoilState, useRecoilValue } from 'recoil';
 
 type UnknownFn<R = any> = (...args: any) => R;
 
@@ -23,4 +24,15 @@ export const getReadableRuntime = (runtime?: number | null): string | null => {
   const minutes = (runtime - 60 * hours);
 
   return `${padWithZero(hours)}:${padWithZero(minutes)}`;
+};
+
+type RecoilObserverProps = {
+  node: RecoilState<any>;
+  onChange: (value: any) => void;
+}
+
+export const RecoilObserver = ({ node, onChange }: RecoilObserverProps) => {
+  const value = useRecoilValue(node);
+  useEffect(() => onChange(value), [onChange, value]);
+  return null;
 };

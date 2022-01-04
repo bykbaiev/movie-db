@@ -1,14 +1,15 @@
-import { useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { SearchQuery } from 'recoil/SearchResults';
 import { compose, getTargetValue } from 'utils';
 
 export const Search = () => {
-  const [value, update] = useState<string>('');
-  const onChange = compose(update, getTargetValue);
+  const [query, setQuery] = useRecoilState(SearchQuery);
+  const onChange = compose(setQuery, getTargetValue);
 
   return (
     <input
       role="search"
-      value={value}
+      value={query}
       onChange={onChange}
     />
   );
