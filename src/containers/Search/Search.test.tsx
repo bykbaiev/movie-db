@@ -29,7 +29,12 @@ describe('#Search', () => {
     renderSearch(onChange, identity);
 
     const searchBox = await screen.findByRole('search');
-    fireEvent.change(searchBox, { target: { value: 'query' } });
+    fireEvent.change(searchBox, {
+      target: { value: 'query' },
+    });
+    fireEvent.keyUp(searchBox);
+
+    await waitFor(async () => expect(await screen.getByTestId('spinner')).toBeInTheDocument());
 
     expect(onChange).toHaveBeenCalledTimes(2);
     expect(onChange).toHaveBeenCalledWith('');
@@ -39,15 +44,30 @@ describe('#Search', () => {
     await waitFor(() => {});
   });
 
-  test('the dropdown for search results should be rendered when the query is non empty', async () => {
+  test('for non-empty query there should be dropdown with loading/results', async () => {
     const onQueryChange = jest.fn();
     const onResultsChange = jest.fn();
     renderSearch(onQueryChange, onResultsChange);
 
     const searchBox = await screen.findByRole('search');
-    fireEvent.change(searchBox, { target: { value: 'query' } });
 
-    expect(await getResults()).toBeInTheDocument();
+    expect(onResultsChange).toHaveBeenCalledWith({ tag: 'Initial' });
+
+    
+    fireEvent.change(searchBox, { target: { value: 'query' } });
+    fireEvent.keyUp(searchBox);
+
+    await waitFor(async () => expect(await screen.getByTestId('spinner')).toBeInTheDocument());
+
+    await waitFor(async () => expect(await getResults()).toBeInTheDocument());
+    expect(onResultsChange).toHaveBeenCalledWith({ tag: 'Loaded', ids: [1, 2, 3] });
+
+    const movies = screen.getAllByTestId('search-result');
+
+    expect(movies.length).toEqual(3);
+    expect(movies[0].textContent).toEqual('1');
+    expect(movies[1].textContent).toEqual('2');
+    expect(movies[2].textContent).toEqual('3');
 
     await waitFor(() => {});
   });

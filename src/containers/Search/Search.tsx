@@ -1,10 +1,10 @@
-import { Container } from '@chakra-ui/layout';
+import { Container, Flex } from '@chakra-ui/layout';
 import { Spinner } from 'components/Spinner';
 import { isFailure,isLoaded } from 'models/SearchResultsState';
-import { Suspense } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { Suspense, useState } from 'react';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { SearchQuery, SearchResults } from 'recoil/SearchResults';
-import { compose, getTargetValue } from 'utils';
+import { compose, debounce, getTargetValue } from 'utils';
 
 const Results = () => {
   const searchResults = useRecoilValue(SearchResults);
@@ -18,20 +18,25 @@ const Results = () => {
   }
 
   return (
-    <div data-testid="search-results" />
+    <Flex data-testid="search-results">
+      {searchResults.ids.map(id => <div data-testid="search-result" key={id}>{id}</div>)}
+    </Flex>
   );
 };
 
 export const Search = () => {
-  const [query, setQuery] = useRecoilState(SearchQuery);
-  const onChange = compose(setQuery, getTargetValue);
+  const [value, setValue] = useState('');
+  const setQuery = useSetRecoilState(SearchQuery);
+  const onChange = compose(setValue, getTargetValue);
+  const onKeyUp = debounce(setQuery, 300);
 
   return (
     <Container>
       <input
         role="search"
-        value={query}
+        value={value}
         onChange={onChange}
+        onKeyUp={() => onKeyUp(value)}
       />
       <Suspense fallback={<Spinner />}>
         <Results />

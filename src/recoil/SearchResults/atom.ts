@@ -7,10 +7,13 @@ export const SearchResults = selector<SearchResultsState>({
     const query = get(SearchQuery);
 
     if (!query) {
-      return { tag: 'Initial' }
+      return { tag: 'Initial' };
     }
 
-    return { tag: 'Loaded', ids: [1, 2, 3] };
+    const request = () => new Promise<SearchResultsState>((resolve) => setTimeout(() => resolve({ tag: 'Loaded', ids: [1, 2, 3] }), 1000));
+    const result = await request();
+
+    return result;
   }
 });
 
