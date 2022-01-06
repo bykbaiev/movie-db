@@ -1,31 +1,55 @@
-import { fireEvent,render, screen } from '@testing-library/react';
+import { Spinner } from '@chakra-ui/spinner';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { Suspense } from 'react';
 import { RecoilRoot } from 'recoil';
-import { SearchQuery } from 'recoil/SearchResults'; 
+import { SearchQuery, SearchResults } from 'recoil/SearchResults'; 
 import { RecoilObserver } from 'utils';
 
 import { Search } from './Search';
 
-const getSearchBox = (onChange) => {
+const renderSearch = (onQueryChange, onResultsChange) => {
   render(
     <RecoilRoot>
-      <RecoilObserver node={SearchQuery} onChange={onChange} />
-      <Search />
+      <Suspense fallback={<Spinner />}>
+        <RecoilObserver node={SearchQuery} onChange={onQueryChange} />
+        <RecoilObserver node={SearchResults} onChange={onResultsChange} />
+        <Search /> 
+      </Suspense>
     </RecoilRoot>
   );
-
-  return screen.getByRole('search');
 };
 
+const identity = x => x;
+
+const getResults = () => screen.getByTestId('search-results');
+
 describe('#Search', () => {
-  test('the state should change on search query change', () => {
+  test('the state should change on search query change', async () => {
     const onChange = jest.fn();
-    const searchBox = getSearchBox(onChange);
+    renderSearch(onChange, identity);
+
+    const searchBox = await screen.findByRole('search');
     fireEvent.change(searchBox, { target: { value: 'query' } });
 
     expect(onChange).toHaveBeenCalledTimes(2);
     expect(onChange).toHaveBeenCalledWith('');
     expect(onChange).toHaveBeenCalledWith('query');
     expect(searchBox).toBeInTheDocument();
+
+    await waitFor(() => {});
+  });
+
+  test('the dropdown for search results should be rendered when the query is non empty', async () => {
+    const onQueryChange = jest.fn();
+    const onResultsChange = jest.fn();
+    renderSearch(onQueryChange, onResultsChange);
+
+    const searchBox = await screen.findByRole('search');
+    fireEvent.change(searchBox, { target: { value: 'query' } });
+
+    expect(await getResults()).toBeInTheDocument();
+
+    await waitFor(() => {});
   });
 });
 

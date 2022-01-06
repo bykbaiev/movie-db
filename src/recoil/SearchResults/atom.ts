@@ -1,8 +1,17 @@
-import { atom } from 'recoil';
+import { SearchResultsState } from 'models/SearchResultsState';
+import { atom, selector } from 'recoil';
 
-export const SearchResults = atom<any>({
-  key: 'PopularMoviesIds',
-  default: { tag: 'Initial' },
+export const SearchResults = selector<SearchResultsState>({
+  key: 'SearchResults',
+  get: async ({ get }) => {
+    const query = get(SearchQuery);
+
+    if (!query) {
+      return { tag: 'Initial' }
+    }
+
+    return { tag: 'Loaded', ids: [1, 2, 3] };
+  }
 });
 
 export const SearchQuery = atom<string>({
