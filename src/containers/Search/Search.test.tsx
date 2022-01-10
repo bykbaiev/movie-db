@@ -21,6 +21,8 @@ const renderSearch = (onQueryChange, onResultsChange) => {
 
 const identity = x => x;
 
+const emptyFn = () => {}; // eslint-disable-line
+
 const getResults = () => screen.getByTestId('search-results');
 
 describe('#Search', () => {
@@ -41,7 +43,7 @@ describe('#Search', () => {
     expect(onChange).toHaveBeenCalledWith('query');
     expect(searchBox).toBeInTheDocument();
 
-    await waitFor(() => {});
+    await waitFor(emptyFn);
   });
 
   test('for non-empty query there should be dropdown with loading/results', async () => {
@@ -69,7 +71,7 @@ describe('#Search', () => {
     expect(movies[1].textContent).toEqual('2');
     expect(movies[2].textContent).toEqual('3');
 
-    await waitFor(() => {});
+    await waitFor(emptyFn);
   });
 });
 
