@@ -1,4 +1,4 @@
-import { Container, Text, useOutsideClick } from '@chakra-ui/react';
+import { Container, Fade, Text, useOutsideClick } from '@chakra-ui/react';
 import { Spinner } from 'components/Spinner';
 import { COLOR, HEADER_HEIGHT, SEARCH_RESULTS_COLOR, SEARCH_RESULTS_MIN_HEIGHT } from 'css-constants';
 import { isFailure,isLoaded } from 'models/SearchResultsState';
@@ -89,7 +89,9 @@ export const Search = () => {
         onFocus={onFocus}
         onKeyUp={() => onKeyUp(value)}
       />
-      {isOpened && <ResultsWrapper />}
+      <Fade in={isOpened}>
+        <ResultsWrapper />
+      </Fade>
     </Container>
   );
 };
