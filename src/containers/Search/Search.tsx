@@ -1,6 +1,6 @@
-import { Container, Fade, Text, useOutsideClick } from '@chakra-ui/react';
+import { Container, Fade, Flex, Input, Text, useOutsideClick } from '@chakra-ui/react';
 import { Spinner } from 'components/Spinner';
-import { COLOR, HEADER_HEIGHT, SEARCH_RESULTS_COLOR, SEARCH_RESULTS_MIN_HEIGHT } from 'css-constants';
+import { COLOR, HEADER_HEIGHT, SEARCH_RESULTS_COLOR, SEARCH_RESULTS_MIN_HEIGHT, SEARCH_WIDTH } from 'css-constants';
 import { isFailure,isLoaded } from 'models/SearchResultsState';
 import { Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation } from 'react-router';
@@ -8,6 +8,7 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { SearchQuery, SearchResults } from 'recoil/SearchResults';
 import { compose, debounce, getTargetValue } from 'utils';
 
+import { SearchMode } from './SearchMode';
 import { SearchResult } from './SearchResult';
 
 const RESULTS_COUNT = 5;
@@ -21,6 +22,7 @@ const ResultsWrapper = () => {
       data-testid="search-results"
       position="absolute"
       top={top}
+      left={0}
       p={0}
       bgColor={SEARCH_RESULTS_COLOR}
       minHeight={minHeight}
@@ -61,6 +63,7 @@ export const Search = () => {
   const setQuery = useSetRecoilState(SearchQuery);
   const onKeyUp = useMemo(() => debounce(setQuery, 500), [setQuery]);
   const location = useLocation();
+  const width = `${SEARCH_WIDTH}px`;
 
   useOutsideClick({
     ref: search,
@@ -81,9 +84,19 @@ export const Search = () => {
   };
 
   return (
-    <Container ref={search}>
-      <input
-        role="search"
+    <Flex
+      ref={search}
+      position='relative'
+      w={width}
+      borderTopLeftRadius={0}
+      borderBottomLeftRadius={0}
+    >
+      <SearchMode />
+      <Input
+        placeholder='Search'
+        bgColor='white'
+        role='search'
+        h='32px'
         value={value}
         onChange={onChange}
         onFocus={onFocus}
@@ -92,6 +105,6 @@ export const Search = () => {
       <Fade in={isOpened}>
         <ResultsWrapper />
       </Fade>
-    </Container>
+    </Flex>
   );
 };
