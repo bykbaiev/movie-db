@@ -1,8 +1,13 @@
 import { ErrorResponse } from './ErrorResponse';
-import { MovieId } from './Movie';
+import { Movie, MovieId } from './Movie';
 import { Initial, TaggedState } from './TaggedState';
 
-export type SearchResultsResponse = any;
+export type SearchResultsResponse = {
+  page?: number;
+  results?: Array<Movie>;
+  total_pages?: number;
+  total_results?: number;
+};
 
 export type Loaded = TaggedState<'Loaded'> & {
   ids: Array<MovieId>;

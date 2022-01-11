@@ -1,5 +1,6 @@
 import { MovieDetails, MovieId } from 'models/Movie';
 import { PopularMoviesResponse } from 'models/PopularMoviesState';
+import { SearchResultsResponse } from 'models/SearchResultsState';
 import { UpcomingMoviesResponse } from 'models/UpcomingMoviesState';
 
 const BASE_URL = 'https://api.themoviedb.org/3/';
@@ -10,7 +11,8 @@ const CONTROLLER = {
   UPCOMING: () => 'movie/upcoming',
   POPULAR: () => 'movie/popular',
   MOVIE_DETAILS: ({ id }: Record<string, string | number>) => `movie/${id}`,
-  VIDEOS: ({ id }: Record<string, string | number>) => `movie/${id}/videos`
+  VIDEOS: ({ id }: Record<string, string | number>) => `movie/${id}/videos`,
+  SEARCH_MOVIE: () => 'search/movie'
 } as const;
 
 type Controller = keyof typeof CONTROLLER;
@@ -55,3 +57,8 @@ export const fetchMovieVideos = async (id: number): Promise<any> => {
 
   return response;
 };
+
+export const searchMovies = async (query: string): Promise<Array<MovieId>> => {
+  return fetchMovies<SearchResultsResponse>('SEARCH_MOVIE', { page: '1', language: 'en-US', query })
+    .then(data => data.results?.map(({ id }) => id) || [])
+}

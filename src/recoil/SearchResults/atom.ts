@@ -1,4 +1,5 @@
-import { SearchResultsState } from 'models/SearchResultsState';
+import { searchMovies } from 'api';
+import { Failure, Loaded, SearchResultsState } from 'models/SearchResultsState';
 import { atom, selector } from 'recoil';
 
 export const SearchResults = selector<SearchResultsState>({
@@ -10,10 +11,9 @@ export const SearchResults = selector<SearchResultsState>({
       return { tag: 'Initial' };
     }
 
-    const request = () => new Promise<SearchResultsState>((resolve) => setTimeout(() => resolve({ tag: 'Loaded', ids: [1, 2, 3] }), 1000));
-    const result = await request();
-
-    return result;
+    return searchMovies(query)
+      .then(ids => <Loaded>{ tag: 'Loaded', ids })
+      .catch(error => <Failure>{ tag: 'Failure', error })
   }
 });
 
