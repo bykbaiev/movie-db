@@ -3,6 +3,7 @@ import { Spinner } from 'components/Spinner';
 import { COLOR, HEADER_HEIGHT, SEARCH_RESULTS_COLOR, SEARCH_RESULTS_MIN_HEIGHT } from 'css-constants';
 import { isFailure,isLoaded } from 'models/SearchResultsState';
 import { Suspense, useEffect, useMemo, useRef, useState } from 'react';
+import { useLocation } from 'react-router';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { SearchQuery, SearchResults } from 'recoil/SearchResults';
 import { compose, debounce, getTargetValue } from 'utils';
@@ -59,6 +60,7 @@ export const Search = () => {
   const [isOpened, setIsOpened] = useState(false);
   const setQuery = useSetRecoilState(SearchQuery);
   const onKeyUp = useMemo(() => debounce(setQuery, 500), [setQuery]);
+  const location = useLocation();
 
   useOutsideClick({
     ref: search,
@@ -68,6 +70,10 @@ export const Search = () => {
   useEffect(() => {
     setIsOpened(!!value);
   }, [value]);
+
+  useEffect(() => {
+    setIsOpened(false);
+  }, [location.pathname]);
 
   const onChange = compose(setValue, getTargetValue);
   const onFocus = () => {
