@@ -18,6 +18,8 @@ export const Routes = () => (
       <Route path='/' element={<Home />} />
       <Route path='/movie' element={<BlankScreen />} />
       <Route path='/movie/:id' element={<Movie />} />
+      <Route path='/person' element={<BlankScreen />} />
+      <Route path='/person/:id' element={<Person />} />
     </Route>
   </Switch>
 );
@@ -43,3 +45,5 @@ const Home = () => (
 const BlankScreen = () => (<BasePage message='Empty Ooops!' />);
 
 const Movie = () => (<BasePage message='Movie details' />);
+
+const Person = () => (<BasePage message='Person details' />);
