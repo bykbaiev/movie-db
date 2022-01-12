@@ -1,4 +1,5 @@
 import { MovieDetails, MovieId } from 'models/Movie';
+import { PersonId } from 'models/Person';
 import { PopularMoviesResponse } from 'models/PopularMoviesState';
 import { SearchResultsResponse } from 'models/SearchResultsState';
 import { UpcomingMoviesResponse } from 'models/UpcomingMoviesState';
@@ -12,7 +13,8 @@ const CONTROLLER = {
   POPULAR: () => 'movie/popular',
   MOVIE_DETAILS: ({ id }: Record<string, string | number>) => `movie/${id}`,
   VIDEOS: ({ id }: Record<string, string | number>) => `movie/${id}/videos`,
-  SEARCH_MOVIE: () => 'search/movie'
+  SEARCH_MOVIE: () => 'search/movie',
+  SEARCH_PERSON: () => 'search/person',
 } as const;
 
 type Controller = keyof typeof CONTROLLER;
@@ -60,5 +62,10 @@ export const fetchMovieVideos = async (id: number): Promise<any> => {
 
 export const searchMovies = async (query: string): Promise<Array<MovieId>> => {
   return fetchMovies<SearchResultsResponse>('SEARCH_MOVIE', { page: '1', language: 'en-US', query })
-    .then(data => data.results?.map(({ id }) => id) || [])
-}
+    .then(data => data.results?.map(({ id }) => id) || []);
+};
+
+export const searchPeople = async (query: string): Promise<Array<PersonId>> => {
+  return fetchMovies<SearchResultsResponse>('SEARCH_PERSON', { page: '1', language: 'en-US', query })
+    .then(data => data.results?.map(({ id }) => id) || []);
+};
