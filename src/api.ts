@@ -2,6 +2,7 @@ import { MovieDetails, MovieId } from 'models/Movie';
 import { PersonDetails } from 'models/Person';
 import { PopularMoviesResponse } from 'models/PopularMoviesState';
 import { MovieResult, PersonResult,SearchMoviesResponse, SearchPeopleResponse, SearchTVResponse, TVShowResult } from 'models/SearchResultsState';
+import { TVShowDetails } from 'models/TVShow';
 import { UpcomingMoviesResponse } from 'models/UpcomingMoviesState';
 
 const BASE_URL = 'https://api.themoviedb.org/3/';
@@ -13,6 +14,7 @@ const CONTROLLER = {
   POPULAR: () => 'movie/popular',
   MOVIE_DETAILS: ({ id }: Record<string, string | number>) => `movie/${id}`,
   PERSON_DETAILS: ({ id }: Record<string, string | number>) => `person/${id}`,
+  TV_SHOW_DETAILS: ({ id }: Record<string, string | number>) => `tv/${id}`,
   VIDEOS: ({ id }: Record<string, string | number>) => `movie/${id}/videos`,
   SEARCH_MOVIE: () => 'search/movie',
   SEARCH_PERSON: () => 'search/person',
@@ -48,6 +50,13 @@ export const fetchMovieDetails = async (id: number): Promise<MovieDetails> => {
 
 export const fetchPersonDetails = async (id: number): Promise<PersonDetails> => {
   const result = await fetch(getUrl('PERSON_DETAILS', { page: '1', language: 'en-US' }, { id }));
+  const response = await result.json();
+
+  return response;
+};
+
+export const fetchTVShowDetails = async (id: number): Promise<TVShowDetails> => {
+  const result = await fetch(getUrl('TV_SHOW_DETAILS', { page: '1', language: 'en-US' }, { id }));
   const response = await result.json();
 
   return response;
