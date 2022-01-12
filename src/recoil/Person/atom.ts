@@ -1,6 +1,6 @@
 import { fetchPersonDetails } from 'api';
 import { PersonId } from 'models/Person';
-import { PersonState, Failure as PersonFailure, Loaded as PersonLoaded } from 'models/PersonState';
+import { Failure as PersonFailure, Loaded as PersonLoaded, PersonState } from 'models/PersonState';
 import { selectorFamily } from 'recoil';
 
 // TODO add caching for API ?
