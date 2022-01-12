@@ -1,5 +1,5 @@
 import { ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons';
-import { Flex, Menu, MenuButton, MenuDivider,MenuItem, MenuList, Spacer } from '@chakra-ui/react';
+import { Flex, Menu, MenuButton, MenuDivider,MenuItem, MenuList, Spacer, Text } from '@chakra-ui/react';
 import { SearchModeState } from 'models/SearchResultsState';
 import { useRecoilState } from 'recoil';
 import { SearchMode } from 'recoil/SearchResults';
@@ -10,6 +10,8 @@ const LABEL: Record<SearchModeState, string> = {
   people: 'People',
   movies: 'Movies'
 };
+
+const LABEL_WIDTH = 140;
 
 export const Mode = () => {
   const [mode, setMode] = useRecoilState(SearchMode);
@@ -29,7 +31,7 @@ export const Mode = () => {
             h='32px'
           >
             <Flex alignItems='center'>
-              {LABEL[mode]}
+              <Text fontSize='sm' w={`${LABEL_WIDTH}px`} align='center'>{LABEL[mode]}</Text>
               <Spacer />
               {isOpen ? <ChevronUpIcon /> : <ChevronDownIcon />}
             </Flex>
