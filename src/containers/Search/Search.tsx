@@ -88,8 +88,6 @@ export const Search = () => {
       ref={search}
       position='relative'
       w={width}
-      borderTopLeftRadius={0}
-      borderBottomLeftRadius={0}
     >
       <SearchMode />
       <Input
@@ -97,6 +95,8 @@ export const Search = () => {
         bgColor='white'
         role='search'
         h='32px'
+        borderTopLeftRadius={0}
+        borderBottomLeftRadius={0}
         value={value}
         onChange={onChange}
         onFocus={onFocus}
