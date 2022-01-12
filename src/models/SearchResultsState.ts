@@ -2,7 +2,7 @@ import { ErrorResponse } from './ErrorResponse';
 import { Movie, MovieId } from './Movie';
 import { Person, PersonId } from './Person';
 import { Initial, TaggedState } from './TaggedState';
-import { TVShowId } from './TVShow';
+import { TVShow, TVShowId } from './TVShow';
 
 export type SearchMoviesResponse = {
   page?: number;
@@ -14,6 +14,13 @@ export type SearchMoviesResponse = {
 export type SearchPeopleResponse = {
   page?: number;
   results?: Array<Person>;
+  total_pages?: number;
+  total_results?: number;
+};
+
+export type SearchTVResponse = {
+  page?: number;
+  results?: Array<TVShow>;
   total_pages?: number;
   total_results?: number;
 };
