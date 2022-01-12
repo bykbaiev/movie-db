@@ -1,5 +1,5 @@
 import { MovieDetails, MovieId } from 'models/Movie';
-import { PersonId } from 'models/Person';
+import { PersonDetails, PersonId } from 'models/Person';
 import { PopularMoviesResponse } from 'models/PopularMoviesState';
 import { SearchResultsResponse } from 'models/SearchResultsState';
 import { UpcomingMoviesResponse } from 'models/UpcomingMoviesState';
@@ -12,6 +12,7 @@ const CONTROLLER = {
   UPCOMING: () => 'movie/upcoming',
   POPULAR: () => 'movie/popular',
   MOVIE_DETAILS: ({ id }: Record<string, string | number>) => `movie/${id}`,
+  PERSON_DETAILS: ({ id }: Record<string, string | number>) => `person/${id}`,
   VIDEOS: ({ id }: Record<string, string | number>) => `movie/${id}/videos`,
   SEARCH_MOVIE: () => 'search/movie',
   SEARCH_PERSON: () => 'search/person',
@@ -39,6 +40,13 @@ const fetchMovies = async <T>(controller: Controller, config: Record<string, str
 
 export const fetchMovieDetails = async (id: number): Promise<MovieDetails> => {
   const result = await fetch(getUrl('MOVIE_DETAILS', { page: '1', language: 'en-US'}, { id }));
+  const response = await result.json();
+
+  return response;
+};
+
+export const fetchPersonDetails = async (id: number): Promise<PersonDetails> => {
+  const result = await fetch(getUrl('PERSON_DETAILS', { page: '1', language: 'en-US' }, { id }));
   const response = await result.json();
 
   return response;
