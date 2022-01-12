@@ -1,6 +1,6 @@
 import { ErrorResponse } from './ErrorResponse';
-import { TVShowDetails } from './TVShow';
 import { TaggedState } from './TaggedState';
+import { TVShowDetails } from './TVShow';
 
 export type Loaded = TaggedState<'Loaded'> & {
   data: TVShowDetails;

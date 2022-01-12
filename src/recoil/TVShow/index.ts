@@ -1,0 +1,1 @@
+export { TVShow } from './atom';
