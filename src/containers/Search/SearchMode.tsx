@@ -29,9 +29,10 @@ export const Mode = () => {
             borderTopRightRadius={0}
             borderBottomRightRadius={0}
             h='32px'
+            w={`${LABEL_WIDTH}px`} 
           >
             <Flex alignItems='center'>
-              <Text fontSize='sm' w={`${LABEL_WIDTH}px`} align='center'>{LABEL[mode]}</Text>
+              <Text fontSize='sm' align='center'>{LABEL[mode]}</Text>
               <Spacer />
               {isOpen ? <ChevronUpIcon /> : <ChevronDownIcon />}
             </Flex>

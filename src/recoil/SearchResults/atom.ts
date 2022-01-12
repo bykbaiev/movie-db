@@ -1,11 +1,9 @@
-import { searchMovies, searchPeople, searchTVShows } from 'api';
+import { searchAll, searchMovies, searchPeople, searchTVShows } from 'api';
 import { Failure, Loaded, SearchModeState, SearchResultsState } from 'models/SearchResultsState';
 import { atom, selector } from 'recoil';
 
-const empty = (_: string) => Promise.resolve([]);
-
 const SEARCH_HANDLER: Record<SearchModeState, (query: string) => Promise<any>> = {
-  all: empty,
+  all: searchAll,
   people: searchPeople,
   movies: searchMovies,
   tv: searchTVShows,

@@ -25,6 +25,13 @@ export type SearchTVResponse = {
   total_results?: number;
 };
 
+export type SearchAllResponse = {
+  page?: number;
+  results?: Array<{ media_type: 'person' | 'tv' | 'movie' } & (Person | Movie | TVShow)>;
+  total_pages?: number;
+  total_results?: number;
+};
+
 export type MovieResult = TaggedState<'Movie'> & { id: MovieId };
 
 export type PersonResult = TaggedState<'Person'> & { id: PersonId };

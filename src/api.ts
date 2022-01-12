@@ -1,7 +1,7 @@
 import { MovieDetails, MovieId } from 'models/Movie';
 import { PersonDetails } from 'models/Person';
 import { PopularMoviesResponse } from 'models/PopularMoviesState';
-import { MovieResult, PersonResult,SearchMoviesResponse, SearchPeopleResponse, SearchTVResponse, TVShowResult } from 'models/SearchResultsState';
+import { MovieResult, PersonResult,SearchAllResponse,SearchMoviesResponse, SearchPeopleResponse, SearchTVResponse, TVShowResult } from 'models/SearchResultsState';
 import { TVShowDetails } from 'models/TVShow';
 import { UpcomingMoviesResponse } from 'models/UpcomingMoviesState';
 
@@ -19,6 +19,7 @@ const CONTROLLER = {
   SEARCH_MOVIE: () => 'search/movie',
   SEARCH_PERSON: () => 'search/person',
   SEARCH_TV: () => 'search/tv',
+  SEARCH_ALL: () => 'search/multi',
 } as const;
 
 type Controller = keyof typeof CONTROLLER;
@@ -34,7 +35,7 @@ const getQuery = (config: Record<string, string>): string =>
 const getUrl = (controller: Controller, config: Record<string, string>, params = {}): string =>
   `${BASE_URL}${CONTROLLER[controller](params)}${getQuery(config)}`;
 
-const fetchMovies = async <T>(controller: Controller, config: Record<string, string>, controllerParams = {}): Promise<T> => {
+const fetchEntities = async <T>(controller: Controller, config: Record<string, string>, controllerParams = {}): Promise<T> => {
   const result = await fetch(getUrl(controller, config, controllerParams));
   const response = await result.json();
 
@@ -63,12 +64,12 @@ export const fetchTVShowDetails = async (id: number): Promise<TVShowDetails> => 
 };
 
 export const fetchUpcomingMovies = async (): Promise<Array<MovieId>> => {
-  return fetchMovies<UpcomingMoviesResponse>('UPCOMING', { page: '1', language: 'en-US' })
+  return fetchEntities<UpcomingMoviesResponse>('UPCOMING', { page: '1', language: 'en-US' })
     .then(data => data.results?.map(({ id }) => id) || []);
 };
 
 export const fetchPopularMovies = async (): Promise<Array<MovieId>> => {
-  return fetchMovies<PopularMoviesResponse>('POPULAR', { page: '1', language: 'en-US' })
+  return fetchEntities<PopularMoviesResponse>('POPULAR', { page: '1', language: 'en-US' })
     .then(data => data.results?.map(({ id }) => id) || []);
 };
 
@@ -79,16 +80,37 @@ export const fetchMovieVideos = async (id: number): Promise<any> => {
 };
 
 export const searchMovies = async (query: string): Promise<Array<MovieResult>> => {
-  return fetchMovies<SearchMoviesResponse>('SEARCH_MOVIE', { page: '1', language: 'en-US', query })
+  return fetchEntities<SearchMoviesResponse>('SEARCH_MOVIE', { page: '1', language: 'en-US', query })
     .then(data => data.results?.map(({ id }) => <MovieResult>{ tag: 'Movie', id }) || []);
 };
 
 export const searchPeople = async (query: string): Promise<Array<PersonResult>> => {
-  return fetchMovies<SearchPeopleResponse>('SEARCH_PERSON', { page: '1', language: 'en-US', query })
+  return fetchEntities<SearchPeopleResponse>('SEARCH_PERSON', { page: '1', language: 'en-US', query })
     .then(data => data.results?.map(({ id }) => <PersonResult>{ tag: 'Person', id }) || []);
 };
 
 export const searchTVShows = async (query: string): Promise<Array<TVShowResult>> => {
-  return fetchMovies<SearchTVResponse>('SEARCH_TV', { page: '1', language: 'en-US', query })
+  return fetchEntities<SearchTVResponse>('SEARCH_TV', { page: '1', language: 'en-US', query })
     .then(data => data.results?.map(({ id }) => <TVShowResult>{ tag: 'TVShow', id }) || []);
+};
+
+type CommonResult = MovieResult | PersonResult | TVShowResult;
+
+export const searchAll = async (query: string): Promise<Array<CommonResult>> => {
+  return fetchEntities<SearchAllResponse>('SEARCH_ALL', { page: '1', language: 'en-US', query })
+    .then(data => data.results?.map(({ id, media_type }) => {
+      switch (media_type) {
+        case 'movie':
+          return <MovieResult>{ tag: 'Movie', id };
+
+        case 'tv':
+          return <TVShowResult>{ tag: 'TVShow', id };
+
+        case 'person':
+          return <PersonResult>{ tag: 'Person', id };
+
+        default:
+          return null;
+      }
+    }).filter(Boolean) as Array<CommonResult> || []);
 };
