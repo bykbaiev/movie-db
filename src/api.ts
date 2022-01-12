@@ -1,7 +1,7 @@
 import { MovieDetails, MovieId } from 'models/Movie';
 import { PersonDetails } from 'models/Person';
 import { PopularMoviesResponse } from 'models/PopularMoviesState';
-import { MovieResult, PersonResult,SearchMoviesResponse, SearchPeopleResponse } from 'models/SearchResultsState';
+import { MovieResult, PersonResult,SearchMoviesResponse, SearchPeopleResponse, SearchTVResponse, TVShowResult } from 'models/SearchResultsState';
 import { UpcomingMoviesResponse } from 'models/UpcomingMoviesState';
 
 const BASE_URL = 'https://api.themoviedb.org/3/';
@@ -16,6 +16,7 @@ const CONTROLLER = {
   VIDEOS: ({ id }: Record<string, string | number>) => `movie/${id}/videos`,
   SEARCH_MOVIE: () => 'search/movie',
   SEARCH_PERSON: () => 'search/person',
+  SEARCH_TV: () => 'search/tv',
 } as const;
 
 type Controller = keyof typeof CONTROLLER;
@@ -76,4 +77,9 @@ export const searchMovies = async (query: string): Promise<Array<MovieResult>> =
 export const searchPeople = async (query: string): Promise<Array<PersonResult>> => {
   return fetchMovies<SearchPeopleResponse>('SEARCH_PERSON', { page: '1', language: 'en-US', query })
     .then(data => data.results?.map(({ id }) => <PersonResult>{ tag: 'Person', id }) || []);
+};
+
+export const searchTVShows = async (query: string): Promise<Array<TVShowResult>> => {
+  return fetchMovies<SearchTVResponse>('SEARCH_TV', { page: '1', language: 'en-US', query })
+    .then(data => data.results?.map(({ id }) => <TVShowResult>{ tag: 'TVShow', id }) || []);
 };
