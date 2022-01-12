@@ -2,6 +2,7 @@ import { ErrorResponse } from './ErrorResponse';
 import { Movie, MovieId } from './Movie';
 import { Person, PersonId } from './Person';
 import { Initial, TaggedState } from './TaggedState';
+import { TVShowId } from './TVShow';
 
 export type SearchMoviesResponse = {
   page?: number;
@@ -21,7 +22,9 @@ export type MovieResult = TaggedState<'Movie'> & { id: MovieId };
 
 export type PersonResult = TaggedState<'Person'> & { id: PersonId };
 
-export type SearchResult = MovieResult | PersonResult;
+export type TVShowResult = TaggedState<'TVShow'> & { id: TVShowId };
+
+export type SearchResult = MovieResult | PersonResult | TVShowResult;
 
 export type Loaded = TaggedState<'Loaded'> & {
   results: Array<SearchResult>;
@@ -46,3 +49,6 @@ export const isLoaded = (data: SearchResultsState): data is Loaded =>
 
 export const isMovie = (data: SearchResult): data is MovieResult =>
   data.tag === 'Movie';
+
+export const isTVShow = (data: SearchResult): data is TVShowResult =>
+  data.tag === 'TVShow';
