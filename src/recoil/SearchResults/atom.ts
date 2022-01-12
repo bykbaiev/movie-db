@@ -1,4 +1,4 @@
-import { searchMovies } from 'api';
+import { searchMovies, searchPeople } from 'api';
 import { Failure, Loaded, SearchModeState, SearchResultsState } from 'models/SearchResultsState';
 import { atom, selector } from 'recoil';
 
@@ -6,7 +6,7 @@ const empty = (_: string) => Promise.resolve([]);
 
 const SEARCH_HANDLER: Record<SearchModeState, (query: string) => Promise<any>> = {
   all: empty,
-  people: empty,
+  people: searchPeople,
   movies: searchMovies,
   tv: empty
 };
@@ -24,7 +24,7 @@ export const SearchResults = selector<SearchResultsState>({
     const search = SEARCH_HANDLER[mode];
 
     return search(query)
-      .then(ids => <Loaded>{ tag: 'Loaded', ids })
+      .then(results => <Loaded>{ tag: 'Loaded', results })
       .catch(error => <Failure>{ tag: 'Failure', error })
   }
 });
