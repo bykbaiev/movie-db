@@ -1,5 +1,13 @@
 export type PersonId = number | undefined;
 
+export type Person = {
+  profile_path?: string | null;
+  adult?: boolean;
+  id?: PersonId;
+  name?: string;
+  popularity?: number;
+};
+
 export type PersonDetails = {
   id?: number;
   birthday?: string | null;
