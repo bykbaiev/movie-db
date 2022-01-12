@@ -1,1 +1,1 @@
-export {SearchResults, SearchQuery} from './atom';
+export {SearchResults, SearchQuery, SearchMode} from './atom';

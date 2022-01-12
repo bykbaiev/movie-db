@@ -1,9 +1,18 @@
 import { ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons';
 import { Flex, Menu, MenuButton, MenuDivider,MenuItem, MenuList, Spacer } from '@chakra-ui/react';
-import { useState } from 'react';
+import { SearchModeState } from 'models/SearchResultsState';
+import { useRecoilState } from 'recoil';
+import { SearchMode } from 'recoil/SearchResults';
 
-export const SearchMode = () => {
-  const [mode, setMode] = useState('all');
+const LABEL: Record<SearchModeState, string> = {
+  all: 'All',
+  tv: 'TV Shows',
+  people: 'People',
+  movies: 'Movies'
+};
+
+export const Mode = () => {
+  const [mode, setMode] = useRecoilState(SearchMode);
 
   return (
     <Menu>
@@ -20,17 +29,17 @@ export const SearchMode = () => {
             h='32px'
           >
             <Flex alignItems='center'>
-              {mode}
+              {LABEL[mode]}
               <Spacer />
               {isOpen ? <ChevronUpIcon /> : <ChevronDownIcon />}
             </Flex>
           </MenuButton>
-          <MenuList>  
-            <MenuItem value='all' onClick={() => setMode('all')}>All</MenuItem>
+          <MenuList zIndex={2}>
+            <MenuItem value='all' onClick={() => setMode('all')}>{LABEL.all}</MenuItem>
             <MenuDivider />
-            <MenuItem value='movies' onClick={() => setMode('movies')}>Movies</MenuItem>
-            <MenuItem value='people' onClick={() => setMode('people')}>People</MenuItem>
-            <MenuItem value='tv' onClick={() => setMode('tv')}>TV Shows</MenuItem>
+            <MenuItem value='movies' onClick={() => setMode('movies')}>{LABEL.movies}</MenuItem>
+            <MenuItem value='people' onClick={() => setMode('people')}>{LABEL.people}</MenuItem>
+            <MenuItem value='tv' onClick={() => setMode('tv')}>{LABEL.tv}</MenuItem>
           </MenuList>
         </>
       )}

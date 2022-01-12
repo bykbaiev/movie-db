@@ -22,6 +22,8 @@ export type SearchResultsState =
   Loaded |
   Failure;
 
+export type SearchModeState = 'all' | 'tv' | 'movies' | 'people';
+
 export const isFailure = (data: SearchResultsState): data is Failure =>
   data.tag === 'Failure';
 

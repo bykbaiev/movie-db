@@ -8,7 +8,7 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { SearchQuery, SearchResults } from 'recoil/SearchResults';
 import { compose, debounce, getTargetValue } from 'utils';
 
-import { SearchMode } from './SearchMode';
+import { Mode } from './SearchMode';
 import { SearchResult } from './SearchResult';
 
 const RESULTS_COUNT = 5;
@@ -89,7 +89,7 @@ export const Search = () => {
       position='relative'
       w={width}
     >
-      <SearchMode />
+      <Mode />
       <Input
         placeholder='Search'
         bgColor='white'
