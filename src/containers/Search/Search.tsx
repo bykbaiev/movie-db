@@ -48,10 +48,10 @@ const Results = () => {
 
   return (
     <Container p={0}>
-      {searchResults.ids.length === 0 && <Text color={COLOR.WHITE}>There are no results</Text>}
-      {searchResults.ids
+      {searchResults.results.length === 0 && <Text color={COLOR.WHITE}>There are no results</Text>}
+      {searchResults.results
         .slice(0, RESULTS_COUNT)
-        .map(id => <SearchResult key={id} id={id} />)}
+        .map(result => <SearchResult key={result.id} result={result} />)}
     </Container>
   );
 };

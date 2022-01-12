@@ -1,22 +1,26 @@
 import { Box, Flex, Image, Text } from '@chakra-ui/react';
 import { COLOR } from 'css-constants';
 import { MovieId } from 'models/Movie';
-import { isFailure, isLoaded } from 'models/MovieState';
+import { isFailure as isMovieFailure, isLoaded as isMovieLoaded } from 'models/MovieState';
+import { PersonId } from 'models/Person';
+import { isFailure as isPersonFailure, isLoaded as isPersonLoaded } from 'models/PersonState';
+import { isMovie, SearchResult as SearchResultItem } from 'models/SearchResultsState';
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { Movie } from 'recoil/Movie';
+import { Person } from 'recoil/Person';
 import { getImagePath } from 'utils';
 
-type SearchResultProps = {
+type MovieResultProps = {
   id: MovieId;
 }
 
-export const SearchResult: FC<SearchResultProps> = ({ id }) => {
+const MovieResult: FC<MovieResultProps> = ({ id }) => {
   const movie = useRecoilValue(Movie(id));
   const imgSize = { w: '48px', h: '72px' };
 
-  if (isFailure(movie)) {
+  if (isMovieFailure(movie)) {
     return <div>Oops, error</div>
   }
 
@@ -28,7 +32,7 @@ export const SearchResult: FC<SearchResultProps> = ({ id }) => {
   return (
     <Link to={`/movie/${id}`}>
       <Flex p={2} data-testid='search-result' cursor='pointer' _hover={{ bg: 'gray.700' }}>
-        {isLoaded(movie) && (
+        {isMovieLoaded(movie) && (
             <>
               <Box flex={`0 0 ${imgSize.w}`} h={imgSize.h} mr={2} bgColor={bg}>
                 {posterSrc && (
@@ -52,4 +56,43 @@ export const SearchResult: FC<SearchResultProps> = ({ id }) => {
       </Flex>
     </Link>
   );
+};
+
+type PersonResultProps = {
+  id: PersonId;
+}
+
+const PersonResult: FC<PersonResultProps> = ({ id }) => {
+  const person = useRecoilValue(Person(id));
+
+  if (isPersonFailure(person)) {
+    return <div>Oops, error</div>
+  }
+
+  const { name, biography } = person.data;
+
+  return (
+    <Link to={`/person/${id}`}>
+      <Box p={2} data-testid='search-result' cursor='pointer' _hover={{ bg: 'gray.700' }}>
+        {isPersonLoaded(person) && (
+            <Box>
+              <Text color={COLOR.WHITE} noOfLines={1} fontSize='md' fontWeight='medium'>{name}</Text>
+              <Text color='gray.50' fontSize='sm' pt={1} noOfLines={2}>{biography}</Text>
+            </Box>
+          )}
+      </Box>
+    </Link>
+  );
+};
+
+type SearchResultProps = {
+  result: SearchResultItem;
+}
+
+export const SearchResult: FC<SearchResultProps> = ({ result }) => {
+  if (isMovie(result)) {
+    return <MovieResult id={result.id} />;
+  }
+
+  return <PersonResult id={result.id} />
 };
