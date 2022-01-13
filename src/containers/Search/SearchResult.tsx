@@ -34,7 +34,7 @@ const MovieResult: FC<MovieResultProps> = ({ id }) => {
 
   return (
     <Link to={`/movie/${id}`}>
-      <Flex p={2} data-testid='search-result' cursor='pointer' _hover={{ bg: 'gray.700' }}>
+      <Flex p={2} data-testid={'search-result-' + id} cursor='pointer' _hover={{ bg: 'gray.700' }}>
         {isMovieLoaded(movie) && (
             <>
               <Box flex={`0 0 ${imgSize.w}`} h={imgSize.h} mr={2} bgColor={bg}>
@@ -80,7 +80,7 @@ const TVShowResult: FC<TVShowResultProps> = ({ id }) => {
 
   return (
     <Link to={`/tv/${id}`}>
-      <Flex p={2} data-testid='search-result' cursor='pointer' _hover={{ bg: 'gray.700' }}>
+      <Flex p={2} data-testid={'search-result-' + id} cursor='pointer' _hover={{ bg: 'gray.700' }}>
         {isTVShowLoaded(show) && (
             <>
               <Box flex={`0 0 ${imgSize.w}`} h={imgSize.h} mr={2} bgColor={bg}>
@@ -122,7 +122,7 @@ const PersonResult: FC<PersonResultProps> = ({ id }) => {
 
   return (
     <Link to={`/person/${id}`}>
-      <Box p={2} data-testid='search-result' cursor='pointer' _hover={{ bg: 'gray.700' }}>
+      <Box p={2} data-testid={'search-result-' + id} cursor='pointer' _hover={{ bg: 'gray.700' }}>
         {isPersonLoaded(person) && (
             <Box>
               <Text color={COLOR.WHITE} noOfLines={1} fontSize='md' fontWeight='medium'>{name}</Text>

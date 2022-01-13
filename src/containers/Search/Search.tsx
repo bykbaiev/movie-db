@@ -39,15 +39,15 @@ const Results = () => {
   const searchResults = useRecoilValue(SearchResults);
 
   if (isFailure(searchResults)) {
-    return <div>Oops, error</div>
+    return <Text color={COLOR.WHITE}>Oops, error</Text>
   }
-
+  
   if (!isLoaded(searchResults)) {
     return null;
   }
 
   return (
-    <Container p={0}>
+    <Container p={0} data-testid='search-results-list'>
       {searchResults.results.length === 0 && <Text color={COLOR.WHITE}>There are no results</Text>}
       {searchResults.results
         .slice(0, RESULTS_COUNT)
