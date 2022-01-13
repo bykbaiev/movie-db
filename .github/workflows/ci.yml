@@ -33,7 +33,7 @@ jobs:
       run: yarn install
 
     - name: Run linter
-      run: yarn run lint
+      run: npm run lint
       
     - name: Run the tests
       run: yarn test

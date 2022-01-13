@@ -1,10 +1,10 @@
 import { Spinner } from '@chakra-ui/spinner';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { Suspense } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import { SearchQuery, SearchResults } from 'recoil/SearchResults'; 
 import { RecoilObserver } from 'utils';
-import { BrowserRouter as Router } from 'react-router-dom';
 
 import { Search } from './Search';
 
