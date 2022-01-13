@@ -36,10 +36,14 @@ const getUrl = (controller: Controller, config: Record<string, string>, params =
   `${BASE_URL}${CONTROLLER[controller](params)}${getQuery(config)}`;
 
 const fetchEntities = async <T>(controller: Controller, config: Record<string, string>, controllerParams = {}): Promise<T> => {
-  const result = await fetch(getUrl(controller, config, controllerParams));
-  const response = await result.json();
+  try {
+    const result = await fetch(getUrl(controller, config, controllerParams));
+    const response = await result.json();
 
-  return response;
+    return response;
+  } catch (_) {
+    return Promise.reject('unable to load entities, controller: ' + controller);
+  }
 };
 
 export const fetchMovieDetails = async (id: number): Promise<MovieDetails> => {
