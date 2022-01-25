@@ -8,6 +8,7 @@ export const Header = () => (
   <Flex
     p='4px'
     align='center'
+    position='relative'
     h={`${HEADER_HEIGHT}px`}
     bgColor={HEADER_BG_COLOR}
   >
