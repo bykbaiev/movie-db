@@ -1,7 +1,15 @@
 import { MovieDetails, MovieId } from 'models/Movie';
 import { PersonDetails } from 'models/Person';
 import { PopularMoviesResponse } from 'models/PopularMoviesState';
-import { MovieResult, PersonResult,SearchAllResponse,SearchMoviesResponse, SearchPeopleResponse, SearchTVResponse, TVShowResult } from 'models/SearchResultsState';
+import {
+  MovieResult,
+  PersonResult,
+  SearchAllResponse,
+  SearchMoviesResponse,
+  SearchPeopleResponse,
+  SearchTVResponse,
+  TVShowResult
+} from 'models/SearchResultsState';
 import { TVShowDetails } from 'models/TVShow';
 import { UpcomingMoviesResponse } from 'models/UpcomingMoviesState';
 
